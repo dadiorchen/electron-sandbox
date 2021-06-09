@@ -1,13 +1,15 @@
 {
   "name": "electron-sandbox",
   "productName": "electron-sandbox",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "My Electron application description",
+  "repository": "https://github.com/dadiorchen/electron-sandbox",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
+    "make-mas": "DEBUG=electron-osx-sign* electron-forge make -v --platform=mas",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
   },
@@ -19,12 +21,22 @@
   "license": "MIT",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "appBundleId": "com.hookstudio.electron-sandbox",
+        "osxSign": {
+          "provisioning-profile": "electronsandbox.provisionprofile",
+          "identity": "Apple Development",
+          "hardened-runtime": true,
+          "entitlements": "entitlements.plist",
+          "entitlements-inherit": "entitlements.plist",
+          "signature-flags": "library"
+        }
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "electron_sandbox"
+            "name": "dadiorapp"
           }
         },
         {
@@ -45,7 +57,9 @@
     }
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-log": "^4.3.5",
+    "electron-squirrel-startup": "^1.0.0",
+    "update-electron-app": "^2.0.1"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.54",

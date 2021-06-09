@@ -1,5 +1,12 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
+const log = require("electron-log");
+
+log.info("electron sandbox start...");
+console.error("message from console.info");
+require('update-electron-app')({
+  logger: log,
+})
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
